@@ -8,8 +8,8 @@ export default function CustomizeModal({ isOpen, onClose, herName, yourName, let
   const [letter, setLetter] = useState(letterText || '');
 
   useEffect(() => {
-    setHer(herName || 'Souji');
-    setYour(yourName || 'Naveen');
+    setHer(herName || 'Mummylu');
+    setYour(yourName || 'Nanna (pichi)');
     setLetter(letterText || '');
   }, [herName, yourName, letterText]);
 
@@ -38,7 +38,7 @@ export default function CustomizeModal({ isOpen, onClose, herName, yourName, let
             id="inputHerName"
             value={her}
             onChange={(e) => setHer(e.target.value)}
-            placeholder="e.g. Souji, My Love..."
+            placeholder="e.g. Mummylu, My Love..."
             className="form-input"
           />
 
@@ -48,7 +48,7 @@ export default function CustomizeModal({ isOpen, onClose, herName, yourName, let
             id="inputYourName"
             value={your}
             onChange={(e) => setYour(e.target.value)}
-            placeholder="e.g. Naveen"
+            placeholder="e.g. Nanna (pichi)"
             className="form-input"
           />
 
