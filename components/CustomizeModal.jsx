@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
 export default function CustomizeModal({ isOpen, onClose, herName, yourName, letterText, onSave, onReset }) {
-  const [her, setHer] = useState(herName || 'Souji');
-  const [your, setYour] = useState(yourName || 'Naveen');
+  const [her, setHer] = useState(herName || 'Mummylu');
+  const [your, setYour] = useState(yourName || 'Nanna (pichi)');
   const [letter, setLetter] = useState(letterText || '');
 
   useEffect(() => {
