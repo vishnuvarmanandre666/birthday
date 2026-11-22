@@ -56,18 +56,7 @@ export default function Stage7Memories({ onNext, isSongPlaying, toggleSong }) {
         <h2 className="romantic-title">Our Sweetest Moments 📸</h2>
         <p className="subtext-soft">Snapshots of us that I cherish more than words can say.</p>
 
-        {/* Romantic Song Indicator */}
-        <div className="song-status-pill-wrap">
-          <button
-            type="button"
-            onClick={toggleSong}
-            className={`song-status-pill ${isSongPlaying ? 'playing' : ''}`}
-            title={isSongPlaying ? 'Pause our song' : 'Play our song'}
-          >
-            <span className="song-equalizer-icon">{isSongPlaying ? '🎶' : '▶️'}</span>
-            <span>{isSongPlaying ? 'Now Playing: Our Song 💕' : 'Click to Play Song 🎵'}</span>
-          </button>
-        </div>
+
 
         {/* Polaroid Wall */}
         <div className="polaroid-wall">

@@ -1171,8 +1171,8 @@ html, body {
 }
 
 .song-status-pill-wrap {
+  display: none !important;
   margin: 12px 0 16px;
-  display: flex;
   justify-content: center;
 }
 
