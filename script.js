@@ -568,6 +568,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2400);
   }
 
+  const ayyappaAudio = document.getElementById('ayyappaAudio');
+
   if (btnToOneMoreSurprise) {
     btnToOneMoreSurprise.addEventListener('click', () => {
       if (playerVideo) playerVideo.pause();
@@ -576,6 +578,10 @@ document.addEventListener('DOMContentLoaded', () => {
       playCelebrationChime();
       switchStage(11);
       triggerTicketPrinting();
+      if (ayyappaAudio) {
+        ayyappaAudio.volume = 0.9;
+        ayyappaAudio.play().catch(e => console.log('Autoplay error:', e));
+      }
     });
   }
 
@@ -590,6 +596,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset state & return to stage 1
     candlesBlown = false;
     giftOpened = false;
+    if (ayyappaAudio) {
+      ayyappaAudio.pause();
+      ayyappaAudio.currentTime = 0;
+    }
     if (giftLid) giftLid.classList.remove('lid-opened');
     if (couponsContainer) couponsContainer.classList.add('hidden');
     if (btnBlowCandles) btnBlowCandles.classList.remove('hidden');

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { playPrinterSound, playCelebrationChime } from '@/lib/audio';
 
@@ -10,6 +10,7 @@ export default function Stage11TicketPrinter({
 }) {
   const [isPrinting, setIsPrinting] = useState(true);
   const [isPrinted, setIsPrinted] = useState(false);
+  const audioRef = useRef(null);
 
   const startPrintingAnimation = () => {
     setIsPrinting(true);
@@ -37,7 +38,32 @@ export default function Stage11TicketPrinter({
 
   useEffect(() => {
     startPrintingAnimation();
+
+    // Auto-play the devotional song immediately when section opens
+    if (audioRef.current) {
+      audioRef.current.volume = 0.9;
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.log('Audio autoplay waiting for user interaction:', err);
+        });
+      }
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, []);
+
+  const handleRestartJourney = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    if (onRestart) onRestart();
+  };
 
   const handlePrintDownload = () => {
     // Open the official PDF ticket in new tab for direct printing/saving
@@ -124,13 +150,23 @@ export default function Stage11TicketPrinter({
           <p className="music-love-quote">“Wishing you boundless love, joy, and blessed adventures together.” ❤️</p>
           <button
             type="button"
-            onClick={onRestart}
+            onClick={handleRestartJourney}
             className="pill-btn btn-primary pulse-glow mt-3"
             title="Restart birthday surprise from stage 1"
           >
             ↺ Relive the Entire Journey
           </button>
         </div>
+
+        {/* Hidden Auto-playing Audio (no song name or play buttons shown) */}
+        <audio
+          ref={audioRef}
+          src="/ayyappa-song.mp3"
+          autoPlay
+          loop
+          preload="auto"
+          style={{ display: 'none' }}
+        />
       </div>
     </section>
   );

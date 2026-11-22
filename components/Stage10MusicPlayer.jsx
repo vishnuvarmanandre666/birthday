@@ -54,6 +54,7 @@ export default function Stage10MusicPlayer({
     }
 
     return () => {
+      if (video) video.pause();
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
       video.removeEventListener('play', handlePlay);
@@ -317,7 +318,11 @@ export default function Stage10MusicPlayer({
           <p className="music-love-quote">“Every love song has always been about you.” ❤️</p>
           <button
             type="button"
-            onClick={onNext}
+            onClick={() => {
+              if (videoRef.current) videoRef.current.pause();
+              setIsPlaying(false);
+              if (onNext) onNext();
+            }}
             className="pill-btn btn-primary pulse-glow mt-3"
             title="Click for one more special surprise"
           >
