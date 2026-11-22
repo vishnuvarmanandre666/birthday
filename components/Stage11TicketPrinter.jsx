@@ -119,34 +119,13 @@ export default function Stage11TicketPrinter({
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="ticket-actions-row mt-4">
-          <button
-            type="button"
-            onClick={handlePrintDownload}
-            className="pill-btn btn-primary pulse-glow"
-            title="Download or Print PDF Ticket"
-          >
-            🖨️ Print / Download PDF Ticket
-          </button>
-
-          <button
-            type="button"
-            onClick={startPrintingAnimation}
-            className="pill-btn btn-secondary"
-            title="Replay printing animation"
-          >
-            🔄 Reprint Ticket
-          </button>
-        </div>
-
         {/* Relive the Whole Journey Button */}
         <div className="journey-restart-wrap mt-4">
           <p className="music-love-quote">“Wishing you boundless love, joy, and blessed adventures together.” ❤️</p>
           <button
             type="button"
             onClick={onRestart}
-            className="pill-btn btn-outline mt-2"
+            className="pill-btn btn-primary pulse-glow mt-3"
             title="Restart birthday surprise from stage 1"
           >
             ↺ Relive the Entire Journey
