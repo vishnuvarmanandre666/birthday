@@ -660,7 +660,10 @@
           <!-- Stitched Gold Border Frame with Video -->
           <div class="player-album-wrap" id="playerAlbumWrap" title="Click to Play / Pause Video">
             <div class="player-album-frame player-video-frame">
-              <video id="playerVideo" src="video.mp4" playsinline preload="auto" class="player-video-element"></video>
+              <video id="playerVideo" src="video.mp4" playsinline webkit-playsinline="true" x5-playsinline="true" preload="metadata" class="player-video-element">
+                <source src="video.mp4" type="video/mp4">
+                <source src="public/video.mp4" type="video/mp4">
+              </video>
               <div class="album-stitch-inner-border"></div>
               <div class="album-glass-glare"></div>
               <div class="video-paused-overlay" id="videoPausedOverlay">

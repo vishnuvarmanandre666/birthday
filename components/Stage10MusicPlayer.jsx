@@ -68,11 +68,19 @@ export default function Stage10MusicPlayer({
     if (!video) return;
 
     if (video.paused) {
-      video.play().catch((err) => {
-        console.log('Video play error / gesture needed:', err);
-      });
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.log('Video play error / gesture needed:', err);
+          });
+      }
     } else {
       video.pause();
+      setIsPlaying(false);
     }
   };
 
@@ -169,10 +177,15 @@ export default function Stage10MusicPlayer({
                 ref={videoRef}
                 src="/video.mp4"
                 playsInline
-                preload="auto"
+                webkit-playsinline="true"
+                x5-playsinline="true"
+                preload="metadata"
                 className="player-video-element"
                 loop={isLooping}
-              />
+              >
+                <source src="/video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
               <div className="album-stitch-inner-border"></div>
               <div className="album-glass-glare"></div>
 
