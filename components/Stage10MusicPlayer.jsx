@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 
 export default function Stage10MusicPlayer({
-  herName = 'Souji',
+  herName = 'Mummylu',
   yourName = 'Naveen',
   onRestart,
   onNext

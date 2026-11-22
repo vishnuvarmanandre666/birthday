@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Happy Birthday Souji ❤️',
-  description: 'A special romantic birthday website for my favorite person, Souji',
+  title: 'Happy Birthday Mummylu ❤️',
+  description: 'A special romantic birthday website for my favorite person, Mummylu',
 };
 
 export default function RootLayout({ children }) {

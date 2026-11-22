@@ -47,7 +47,7 @@ export default function Stage9Gift({ herName, yourName, onNext }) {
         {/* Revealed Coupons */}
         {giftOpened && (
           <div className="coupons-container">
-            <h3 className="coupons-title">🎟️ {herName || 'Souji'}&apos;s Birthday Love Coupons 🎟️</h3>
+            <h3 className="coupons-title">🎟️ {herName || 'Mummylu'}&apos;s Birthday Love Coupons 🎟️</h3>
             <p className="coupons-note">(Redeemable anytime, no expiration date!)</p>
 
             <div className="coupons-grid">

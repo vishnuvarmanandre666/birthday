@@ -70,7 +70,7 @@ export default function Stage8Cake({ herName, onNext }) {
         {/* Wish Reveal Box */}
         {candlesBlown && (
           <div className="wish-reveal-box">
-            <h3 className="wish-congrats">🎉 HAPPY BIRTHDAY, {herName ? herName.toUpperCase() : 'SOUJI'}! 🎉</h3>
+            <h3 className="wish-congrats">🎉 HAPPY BIRTHDAY, {herName ? herName.toUpperCase() : 'MUMMYLU'}! 🎉</h3>
             <p className="wish-sub">
               May every single wish you made today blossom into reality. I promise to stand by your side to help make them come true! ❤️
             </p>

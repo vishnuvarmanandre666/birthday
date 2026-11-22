@@ -4,7 +4,7 @@ import confetti from 'canvas-confetti';
 import { playPrinterSound, playCelebrationChime } from '@/lib/audio';
 
 export default function Stage11TicketPrinter({
-  herName = 'Souji',
+  herName = 'Mummylu',
   yourName = 'Naveen',
   onRestart
 }) {

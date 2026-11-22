@@ -25,8 +25,8 @@ import {
 
 export default function BirthdayPage() {
   const [stage, setStage] = useState(1);
-  const [herName, setHerName] = useState('Souji');
-  const [yourName, setYourName] = useState('Naveen');
+  const [herName, setHerName] = useState('Mummylu');
+  const [yourName, setYourName] = useState('Nannalu');
   const [letterText, setLetterText] = useState('');
   const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
   const [isSongPlaying, setIsSongPlaying] = useState(false);
@@ -81,15 +81,24 @@ export default function BirthdayPage() {
       const savedLetter = localStorage.getItem('bday_letter_text');
 
       if (savedHer) {
-        setHerName(savedHer.charAt(0).toUpperCase() + savedHer.slice(1));
+        if (savedHer.toLowerCase() === 'souji') {
+          setHerName('Mummylu');
+          localStorage.setItem('bday_her_name', 'Mummylu');
+        } else {
+          setHerName(savedHer.charAt(0).toUpperCase() + savedHer.slice(1));
+        }
       } else {
-        setHerName('Souji');
+        setHerName('Mummylu');
       }
 
       if (savedYour) setYourName(savedYour);
       if (savedLetter) setLetterText(savedLetter);
     } catch (e) {}
   }, []);
+
+  useEffect(() => {
+    document.title = `Happy Birthday ${herName || 'Mummylu'} ❤️`;
+  }, [herName]);
 
   const triggerConfetti = (x = 0.5, y = 0.5) => {
     if (typeof confetti === 'function') {
@@ -156,7 +165,7 @@ export default function BirthdayPage() {
       localStorage.removeItem('bday_letter_text');
       localStorage.removeItem('bday_custom_photos');
     } catch (e) {}
-    setHerName('Souji');
+    setHerName('Mummylu');
     setYourName('Naveen');
     setLetterText('');
     setIsCustomizeOpen(false);

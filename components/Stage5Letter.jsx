@@ -84,12 +84,12 @@ export default function Stage5Letter({ herName, yourName, letterText, onNext }) 
             <div className="letter-post-stamp">
               <span className="stamp-heart">💌</span>
               <span className="stamp-text">SPECIAL DELIVERY</span>
-              <span className="stamp-date">FOR {herName ? herName.toUpperCase() : 'SOUJI'}</span>
+              <span className="stamp-date">FOR {herName ? herName.toUpperCase() : 'MUMMYLU'}</span>
             </div>
 
             {/* Letter Header in Cursive */}
             <h2 className="letter-salutation">
-              Happy birthday to my favorite person, {herName || 'Souji'} <span className="heart-pulse">❤️</span>
+              Happy birthday to my favorite person, {herName || 'Mummylu'} <span className="heart-pulse">❤️</span>
             </h2>
 
             {/* Letter Body Paragraphs */}

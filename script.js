@@ -888,9 +888,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load custom values on startup
   function loadPersistedSettings() {
-    let savedHer = localStorage.getItem(STORAGE_KEY_HER_NAME) || 'Souji';
-    if (savedHer.toLowerCase() === 'souji') savedHer = 'Souji';
+    let savedHer = localStorage.getItem(STORAGE_KEY_HER_NAME) || 'Mummylu';
+    if (savedHer.toLowerCase() === 'souji') {
+      savedHer = 'Mummylu';
+      localStorage.setItem(STORAGE_KEY_HER_NAME, 'Mummylu');
+    }
     applyHerNameToAll(savedHer);
+    document.title = `Happy Birthday ${savedHer} ❤️`;
 
     const savedYour = localStorage.getItem(STORAGE_KEY_YOUR_NAME);
     const savedLetter = localStorage.getItem(STORAGE_KEY_LETTER);
