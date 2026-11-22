@@ -26,6 +26,12 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# large media files (>100MB exceeds GitHub push limit)
+*.mp4
+/public/*.mp4
+video.mp4
+public/video.mp4
+
 # vercel
 .vercel
 

@@ -667,15 +667,24 @@
         <div class="luxury-player-card">
           <div class="player-header">
             <span class="player-now-playing">Now Playing</span>
-            <p class="player-song-title-artist">Song Title • Artist Name</p>
+            <p class="player-song-title-artist">Our Special Memories Video ❤️</p>
           </div>
 
-          <!-- Stitched Gold Border Album Art Frame (Empty template look) -->
-          <div class="player-album-wrap" id="playerAlbumWrap">
-            <div class="player-album-frame">
+          <!-- Stitched Gold Border Frame with Video -->
+          <div class="player-album-wrap" id="playerAlbumWrap" title="Click to Play / Pause Video">
+            <div class="player-album-frame player-video-frame">
+              <video id="playerVideo" src="video.mp4" playsinline preload="auto" class="player-video-element"></video>
               <div class="album-stitch-inner-border"></div>
               <div class="album-glass-glare"></div>
+              <div class="video-paused-overlay" id="videoPausedOverlay">
+                <div class="video-play-hint-circle">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                  </svg>
+                </div>
+              </div>
             </div>
+            <p class="player-video-tap-hint">🎬 Tap video or button below to play</p>
           </div>
 
           <!-- Golden Scrubber Bar -->

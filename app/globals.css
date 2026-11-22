@@ -1615,6 +1615,58 @@ html, body {
   background-color: #2b040a;
 }
 
+.player-album-frame.player-video-frame {
+  width: 250px;
+  height: 320px;
+  max-width: 82vw;
+  background-color: #1a0508;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.player-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+.video-paused-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.video-play-hint-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(141, 19, 38, 0.88);
+  border: 2px solid rgba(255, 209, 102, 0.85);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding-left: 3px;
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+.player-video-tap-hint {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.78rem;
+  color: rgba(242, 223, 200, 0.75);
+  margin-top: 8px;
+  letter-spacing: 0.3px;
+}
+
 .album-stitch-inner-border {
   position: absolute;
   inset: 6px;

@@ -396,9 +396,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // STAGE 10: LUXURY MUSIC PLAYER LOGIC (With Samayama & Memories Track)
+  // STAGE 10: ROMANTIC MUSIC & VIDEO PLAYER LOGIC
   // ==========================================================================
   const playerAudio = document.getElementById('playerAudio');
+  const playerVideo = document.getElementById('playerVideo');
+  const videoPausedOverlay = document.getElementById('videoPausedOverlay');
   const playerSongTitle = document.getElementById('playerSongTitle');
   const playerArtistName = document.getElementById('playerArtistName');
   const playerAlbumWrap = document.getElementById('playerAlbumWrap');
@@ -416,73 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnPlayerNext = document.getElementById('btnPlayerNext');
   const btnPlayerLoop = document.getElementById('btnPlayerLoop');
 
-  const playerPlaylist = [
-    {
-      title: 'Samayama 🎶',
-      artist: 'Hi Nanna • Naveen & Souji ❤️',
-      src: 'samayama.mp3',
-      defaultDuration: 204
-    },
-    {
-      title: 'Our Love Melody 💕',
-      artist: 'Romantic BGM • Dedicated to Souji',
-      src: 'memories-song.mp3',
-      defaultDuration: 34
-    }
-  ];
-  let currentTrackIdx = 0;
-
-  const playerPhotos = [
-    { src: 'images/moment1.jpg', caption: 'My favorite smile in the whole world 💕' },
-    { src: 'images/moment2.jpg', caption: 'My safe place & sweetest comfort 🥺❤️' },
-    { src: 'images/moment3.jpg', caption: 'Every adventure with you is magic ✨' }
-  ];
-  let currentPhotoIdx = 0;
-  let isLoopEnabled = true;
-
-  function renderPlayerPhoto(idx) {
-    currentPhotoIdx = (idx + playerPhotos.length) % playerPhotos.length;
-    if (playerAlbumImg) playerAlbumImg.src = playerPhotos[currentPhotoIdx].src;
-    if (playerPhotoCaption) playerPhotoCaption.textContent = playerPhotos[currentPhotoIdx].caption;
-  }
-
-  function setPlayerTrack(idx) {
-    currentTrackIdx = (idx + playerPlaylist.length) % playerPlaylist.length;
-    const track = playerPlaylist[currentTrackIdx];
-    if (playerSongTitle) playerSongTitle.textContent = track.title;
-    if (playerArtistName) playerArtistName.textContent = track.artist;
-    if (playerAudio) {
-      playerAudio.src = track.src;
-      playerAudio.currentTime = 0;
-      playerAudio.play().catch(() => {});
-    }
-  }
-
-  if (playerAlbumWrap) playerAlbumWrap.addEventListener('click', () => renderPlayerPhoto(currentPhotoIdx + 1));
-  if (btnPlayerNext) {
-    btnPlayerNext.addEventListener('click', () => {
-      renderPlayerPhoto(currentPhotoIdx + 1);
-      setPlayerTrack(currentTrackIdx + 1);
-    });
-  }
-  if (btnPlayerPrev) {
-    btnPlayerPrev.addEventListener('click', () => {
-      renderPlayerPhoto(currentPhotoIdx - 1);
-      if (playerAudio && playerAudio.currentTime > 3) {
-        playerAudio.currentTime = 0;
-      } else {
-        setPlayerTrack(currentTrackIdx - 1);
-      }
-    });
-  }
-  if (btnPlayerShuffle) {
-    btnPlayerShuffle.addEventListener('click', () => {
-      let rand = Math.floor(Math.random() * playerPhotos.length);
-      if (rand === currentPhotoIdx) rand = (currentPhotoIdx + 1) % playerPhotos.length;
-      renderPlayerPhoto(rand);
-      triggerConfetti(0.5, 0.6);
-    });
-  }
+  let isLoopEnabled = false;
 
   function formatTimeMinSec(sec) {
     if (isNaN(sec) || sec < 0) return '0:00';
@@ -492,9 +428,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updatePlayerProgress() {
-    if (!playerAudio) return;
-    const cur = playerAudio.currentTime || 0;
-    const dur = playerAudio.duration && !isNaN(playerAudio.duration) ? playerAudio.duration : playerPlaylist[currentTrackIdx].defaultDuration;
+    const media = playerVideo || playerAudio;
+    if (!media) return;
+    const cur = media.currentTime || 0;
+    const dur = media.duration && !isNaN(media.duration) ? media.duration : 0;
     const pct = dur > 0 ? Math.min(100, (cur / dur) * 100) : 0;
 
     if (playerTimeCurrent) playerTimeCurrent.textContent = formatTimeMinSec(cur);
@@ -503,51 +440,93 @@ document.addEventListener('DOMContentLoaded', () => {
     if (playerScrubberThumb) playerScrubberThumb.style.left = `${pct}%`;
 
     if (svgPlayPauseIcon) {
-      if (!playerAudio.paused) {
+      if (!media.paused) {
         svgPlayPauseIcon.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect>';
       } else {
         svgPlayPauseIcon.innerHTML = '<polygon points="6 4 20 12 6 20 6 4"></polygon>';
       }
     }
+    if (videoPausedOverlay) {
+      videoPausedOverlay.style.opacity = media.paused ? '1' : '0';
+    }
   }
 
-  if (playerAudio) {
-    playerAudio.addEventListener('timeupdate', updatePlayerProgress);
-    playerAudio.addEventListener('loadedmetadata', updatePlayerProgress);
-    playerAudio.addEventListener('play', updatePlayerProgress);
-    playerAudio.addEventListener('pause', updatePlayerProgress);
-    playerAudio.addEventListener('ended', () => {
-      if (!isLoopEnabled) {
-        setPlayerTrack(currentTrackIdx + 1);
+  const activeMedia = playerVideo || playerAudio;
+  if (activeMedia) {
+    activeMedia.addEventListener('timeupdate', updatePlayerProgress);
+    activeMedia.addEventListener('loadedmetadata', updatePlayerProgress);
+    activeMedia.addEventListener('play', updatePlayerProgress);
+    activeMedia.addEventListener('pause', updatePlayerProgress);
+  }
+
+  if (playerAlbumWrap && playerVideo) {
+    playerAlbumWrap.addEventListener('click', () => {
+      if (playerVideo.paused) {
+        playerVideo.play().catch(() => {});
+      } else {
+        playerVideo.pause();
+      }
+    });
+  }
+
+  if (btnPlayerPlay) {
+    btnPlayerPlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const media = playerVideo || playerAudio;
+      if (!media) return;
+      if (media.paused) {
+        media.play().catch(() => {});
+      } else {
+        media.pause();
       }
     });
   }
 
   if (playerScrubberTrack) {
     playerScrubberTrack.addEventListener('click', (e) => {
-      if (!playerAudio) return;
+      const media = playerVideo || playerAudio;
+      if (!media) return;
       const rect = playerScrubberTrack.getBoundingClientRect();
       const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      const dur = playerAudio.duration && !isNaN(playerAudio.duration) ? playerAudio.duration : playerPlaylist[currentTrackIdx].defaultDuration;
-      playerAudio.currentTime = pct * dur;
+      const dur = media.duration && !isNaN(media.duration) ? media.duration : 0;
+      media.currentTime = pct * dur;
     });
   }
 
-  if (btnPlayerPlay) {
-    btnPlayerPlay.addEventListener('click', () => {
-      if (!playerAudio) return;
-      if (playerAudio.paused) {
-        playerAudio.play().catch(() => {});
-      } else {
-        playerAudio.pause();
+  if (btnPlayerPrev) {
+    btnPlayerPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const media = playerVideo || playerAudio;
+      if (media) {
+        if (media.currentTime > 3) media.currentTime = 0;
+        else media.currentTime = Math.max(0, media.currentTime - 10);
       }
     });
   }
 
+  if (btnPlayerNext) {
+    btnPlayerNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const media = playerVideo || playerAudio;
+      if (media) {
+        media.currentTime = Math.min((media.duration || 100), media.currentTime + 10);
+      }
+    });
+  }
+
+  if (btnPlayerShuffle) {
+    btnPlayerShuffle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      triggerConfetti(0.5, 0.6);
+    });
+  }
+
   if (btnPlayerLoop) {
-    btnPlayerLoop.addEventListener('click', () => {
+    btnPlayerLoop.addEventListener('click', (e) => {
+      e.stopPropagation();
       isLoopEnabled = !isLoopEnabled;
-      if (playerAudio) playerAudio.loop = isLoopEnabled;
+      const media = playerVideo || playerAudio;
+      if (media) media.loop = isLoopEnabled;
       btnPlayerLoop.classList.toggle('active-loop', isLoopEnabled);
     });
   }

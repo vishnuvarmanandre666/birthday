@@ -9,41 +9,85 @@ export default function Stage10MusicPlayer({
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [isLooping, setIsLooping] = useState(false);
-  const duration = 204; // 3:24 matching reference template
 
+  const videoRef = useRef(null);
   const scrubberTrackRef = useRef(null);
 
-  // Simulated player scrubber progress when Play is toggled
+  // Sync video time and events
   useEffect(() => {
-    let interval = null;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setCurrentTime((prev) => {
-          if (prev >= duration) {
-            if (isLooping) return 0;
-            setIsPlaying(false);
-            return 0;
-          }
-          return prev + 1;
-        });
-      }, 1000);
-    } else {
-      clearInterval(interval);
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(video.currentTime);
+      if (video.duration && !isNaN(video.duration)) {
+        setDuration(video.duration);
+      }
+    };
+
+    const handleLoadedMetadata = () => {
+      if (video.duration && !isNaN(video.duration)) {
+        setDuration(video.duration);
+      }
+    };
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleEnded = () => {
+      if (!isLooping) {
+        setIsPlaying(false);
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('ended', handleEnded);
+
+    // If metadata already loaded
+    if (video.duration && !isNaN(video.duration)) {
+      setDuration(video.duration);
     }
-    return () => clearInterval(interval);
-  }, [isPlaying, isLooping, duration]);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [isLooping]);
 
   const togglePlay = () => {
-    setIsPlaying((prev) => !prev);
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.play().catch((err) => {
+        console.log('Video play error / gesture needed:', err);
+      });
+    } else {
+      video.pause();
+    }
   };
 
   const handleNext = () => {
-    setCurrentTime(0);
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = Math.min((video.duration || 100), video.currentTime + 10);
   };
 
   const handlePrev = () => {
-    setCurrentTime(0);
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.currentTime > 3) {
+      video.currentTime = 0;
+    } else {
+      video.currentTime = Math.max(0, video.currentTime - 10);
+    }
   };
 
   const formatTime = (seconds) => {
@@ -56,12 +100,15 @@ export default function Stage10MusicPlayer({
   const progressPercent = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
 
   const handleScrubberClick = (e) => {
-    if (!scrubberTrackRef.current) return;
+    const video = videoRef.current;
+    if (!scrubberTrackRef.current || !video) return;
+
     const rect = scrubberTrackRef.current.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const width = rect.width;
     const percentage = Math.max(0, Math.min(1, clickX / width));
-    const newTime = Math.round(percentage * duration);
+    const newTime = percentage * (duration || 0);
+    video.currentTime = newTime;
     setCurrentTime(newTime);
   };
 
@@ -77,17 +124,25 @@ export default function Stage10MusicPlayer({
   };
 
   const toggleLoop = () => {
-    setIsLooping((prev) => !prev);
+    const video = videoRef.current;
+    if (video) {
+      video.loop = !isLooping;
+      setIsLooping(!isLooping);
+    }
   };
 
   const handleFullRestart = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
     setIsPlaying(false);
-    setCurrentTime(0);
     if (onRestart) onRestart();
   };
 
   return (
-    <section className="stage-card active-stage stage-music-player-card" aria-label="Romantic Music Player">
+    <section className="stage-card active-stage stage-music-player-card" aria-label="Romantic Music & Video Player">
       {/* Dark Crimson Peonies Backdrop */}
       <div className="music-player-bg-art" style={{ backgroundImage: "url('/images/music-player-bg.jpg')" }}></div>
       <div className="music-player-backdrop-overlay"></div>
@@ -95,18 +150,42 @@ export default function Stage10MusicPlayer({
       <div className="stage-content text-center music-player-content">
         {/* Luxury Burgundy Frosted Glass Player Card */}
         <div className="luxury-player-card">
-          {/* Card Header matching template */}
+          {/* Card Header */}
           <div className="player-header">
             <span className="player-now-playing">Now Playing</span>
-            <p className="player-song-title-artist">Song Title • Artist Name</p>
+            <p className="player-song-title-artist">Our Special Memories Video ❤️</p>
           </div>
 
-          {/* Stitched Gold Border Album Art Frame (Empty clean canvas matching template) */}
-          <div className="player-album-wrap">
-            <div className="player-album-frame">
+          {/* Stitched Gold Border Frame with Video */}
+          <div
+            className="player-album-wrap"
+            onClick={togglePlay}
+            title={isPlaying ? "Click to Pause" : "Click to Play Video"}
+          >
+            <div className="player-album-frame player-video-frame">
+              <video
+                ref={videoRef}
+                src="/video.mp4"
+                playsInline
+                preload="auto"
+                className="player-video-element"
+                loop={isLooping}
+              />
               <div className="album-stitch-inner-border"></div>
               <div className="album-glass-glare"></div>
+
+              {/* Subtle play hint overlay when paused */}
+              {!isPlaying && (
+                <div className="video-paused-overlay">
+                  <div className="video-play-hint-circle">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                    </svg>
+                  </div>
+                </div>
+              )}
             </div>
+            <p className="player-video-tap-hint">🎬 Tap video or button below to play</p>
           </div>
 
           {/* Golden Scrubber Bar */}
@@ -132,15 +211,18 @@ export default function Stage10MusicPlayer({
             </div>
           </div>
 
-          {/* 5 Music Controls matching user's template */}
+          {/* 5 Music / Video Controls */}
           <div className="player-controls-row">
-            {/* Shuffle */}
+            {/* Shuffle / Confetti */}
             <button
               type="button"
-              onClick={handleShuffle}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleShuffle();
+              }}
               className="player-icon-btn"
-              title="Shuffle"
-              aria-label="Shuffle"
+              title="Sparkle celebration"
+              aria-label="Sparkle celebration"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="16 3 21 3 21 8"></polyline>
@@ -151,13 +233,16 @@ export default function Stage10MusicPlayer({
               </svg>
             </button>
 
-            {/* Previous */}
+            {/* Rewind 10s */}
             <button
               type="button"
-              onClick={handlePrev}
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrev();
+              }}
               className="player-icon-btn"
-              title="Previous"
-              aria-label="Previous"
+              title="Rewind / Restart video"
+              aria-label="Rewind"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="19 20 9 12 19 4 19 20"></polygon>
@@ -168,9 +253,12 @@ export default function Stage10MusicPlayer({
             {/* Main 3D Circular Play / Pause Button */}
             <button
               type="button"
-              onClick={togglePlay}
+              onClick={(e) => {
+                e.stopPropagation();
+                togglePlay();
+              }}
               className="player-play-btn"
-              title={isPlaying ? "Pause" : "Play"}
+              title={isPlaying ? "Pause video" : "Play video"}
               aria-label={isPlaying ? "Pause" : "Play"}
             >
               {isPlaying ? (
@@ -185,13 +273,16 @@ export default function Stage10MusicPlayer({
               )}
             </button>
 
-            {/* Next */}
+            {/* Forward 10s */}
             <button
               type="button"
-              onClick={handleNext}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
               className="player-icon-btn"
-              title="Next"
-              aria-label="Next"
+              title="Skip forward 10s"
+              aria-label="Forward"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="5 4 15 12 5 20 5 4"></polygon>
@@ -202,7 +293,10 @@ export default function Stage10MusicPlayer({
             {/* Repeat / Loop */}
             <button
               type="button"
-              onClick={toggleLoop}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleLoop();
+              }}
               className={`player-icon-btn ${isLooping ? 'active-loop' : ''}`}
               title={isLooping ? "Loop enabled" : "Loop disabled"}
               aria-label="Repeat"
