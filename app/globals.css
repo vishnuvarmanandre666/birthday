@@ -214,19 +214,20 @@ html, body {
    TOP NAVIGATION
    ========================================================================== */
 .top-nav-bar {
+  display: none !important;
   position: fixed;
   top: 16px;
   left: 0;
   width: 100%;
   padding: 0 24px;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 50;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .sparkle-badge {
+  display: none !important;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
