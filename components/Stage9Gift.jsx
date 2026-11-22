@@ -77,7 +77,7 @@ export default function Stage9Gift({ herName, yourName, onNext }) {
               <p className="big-romantic-phrase">Happy Birthday to the love of my life!</p>
               <p className="signoff-sub">I love you yesterday, today, tomorrow, and forever. ❤️</p>
               <button onClick={onNext} className="pill-btn btn-primary pulse-glow mt-3">
-                Next: Our Song 🎵 →
+                Next →
               </button>
             </div>
           </div>
