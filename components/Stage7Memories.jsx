@@ -99,20 +99,6 @@ export default function Stage7Memories({ onNext, isSongPlaying, toggleSong }) {
           </div>
         </div>
 
-        <div className="photo-upload-note">
-          <label htmlFor="customPhotoInput" className="upload-custom-label">
-            📷 Replace with your own photos (Click to upload)
-          </label>
-          <input
-            type="file"
-            id="customPhotoInput"
-            accept="image/*"
-            multiple
-            onChange={handlePhotoUpload}
-            style={{ display: 'none' }}
-          />
-        </div>
-
         <div className="button-row mt-4">
           <button onClick={onNext} className="pill-btn btn-primary pulse-glow">Make a Birthday Wish 🎂</button>
         </div>

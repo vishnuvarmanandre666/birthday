@@ -1208,6 +1208,7 @@ html, body {
 }
 
 .photo-upload-note {
+  display: none !important;
   margin-top: 10px;
 }
 
