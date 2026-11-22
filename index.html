@@ -742,10 +742,124 @@
           </div>
         </div>
 
-        <!-- Section Footer with Relive the Journey -->
-        <div className="music-player-footer mt-4">
-          <p className="music-love-quote">“Every love song has always been about you.” ❤️</p>
-          <button id="btnRestart" class="pill-btn btn-primary pulse-glow mt-3">↺ Relive the Journey</button>
+        <!-- Section Footer with One More Surprise -->
+        <div class="music-player-footer mt-4">
+          <p class="music-love-quote">“Every love song has always been about you.” ❤️</p>
+          <button id="btnToOneMoreSurprise" class="pill-btn btn-primary pulse-glow mt-3">One More Surprise ✨</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- STAGE 11: SABARIMALA VIRTUAL-Q TICKET PRINTER  -->
+    <!-- ============================================== -->
+    <section id="stage-11" class="stage-card stage-ticket-printer-card hidden" aria-label="Sabarimala Virtual-Q Ticket Printer">
+      <div class="stage-content text-center">
+        <!-- Title Header -->
+        <div class="ticket-printer-header">
+          <span class="sparkle-badge mb-2">🎟️ One More Special Blessing &amp; Surprise</span>
+          <h2 class="main-title font-serif" style="font-size: 2.1rem;">
+            Swamiye Saranam Ayyappa 🙏
+          </h2>
+          <p class="script-lead" style="font-size: 1.25rem; margin-top: 4px;">
+            A sacred Darshan journey for <span id="ticketHerName">Souji</span> &amp; <span id="ticketYourName">Naveen</span>
+          </p>
+        </div>
+
+        <!-- Printer Dispenser Machine Housing -->
+        <div class="ticket-dispenser-machine">
+          <!-- Machine Top Bar -->
+          <div class="printer-machine-bar">
+            <div class="printer-bar-left">
+              <span id="printerLed" class="printer-led led-active"></span>
+              <span id="printerStatusText" class="printer-status-text">
+                PRINTING VIRTUAL-Q COUPON...
+              </span>
+            </div>
+            <div class="printer-bar-right">
+              <span class="printer-brand">SABARIMALA DISPENSER</span>
+            </div>
+          </div>
+
+          <!-- Machine Paper Slot Mouth -->
+          <div class="printer-slot-mouth">
+            <div class="slot-shadow-inset"></div>
+          </div>
+
+          <!-- Paper Feed Slide-out Container -->
+          <div class="printer-paper-feed">
+            <div id="ticketSheetWrapper" class="ticket-sheet-wrapper sheet-printing">
+              <div class="ticket-paper-card">
+                <!-- Perforated ticket side cutouts -->
+                <div class="ticket-cutout ticket-cutout-left" aria-hidden="true"></div>
+                <div class="ticket-cutout ticket-cutout-right" aria-hidden="true"></div>
+
+                <!-- The Ticket Graphic -->
+                <div class="ticket-graphic-container">
+                  <img
+                    src="images/sabarimala-coupon.png"
+                    alt="Sabarimala Virtual-Q Booking Coupon for Gorsa Naveen"
+                    class="ticket-coupon-img"
+                  />
+                </div>
+
+                <!-- Quick Info Summary Pills -->
+                <div class="ticket-quick-details">
+                  <div class="ticket-info-pill">
+                    <span class="pill-label">🗓️ Date of Visit</span>
+                    <span class="pill-value">08-01-2027</span>
+                  </div>
+                  <div class="ticket-info-pill">
+                    <span class="pill-label">⏰ Time Slot</span>
+                    <span class="pill-value">10:00 - 11:00</span>
+                  </div>
+                  <div class="ticket-info-pill">
+                    <span class="pill-label">👤 Pilgrim</span>
+                    <span class="pill-value">GORSA NAVEEN</span>
+                  </div>
+                  <div class="ticket-info-pill">
+                    <span class="pill-label">📍 Route</span>
+                    <span class="pill-value">Pamba - Marakkoottam</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="ticket-actions-row mt-4">
+          <a
+            href="sabarimala-ticket.pdf"
+            target="_blank"
+            class="pill-btn btn-primary pulse-glow"
+            title="Download or Print PDF Ticket"
+            style="text-decoration: none; display: inline-flex; align-items: center;"
+          >
+            🖨️ Print / Download PDF Ticket
+          </a>
+
+          <button
+            type="button"
+            id="btnReprintTicket"
+            class="pill-btn btn-secondary"
+            title="Replay printing animation"
+          >
+            🔄 Reprint Ticket
+          </button>
+        </div>
+
+        <!-- Relive the Whole Journey Button -->
+        <div class="journey-restart-wrap mt-4">
+          <p class="music-love-quote">“Wishing you boundless love, joy, and blessed adventures together.” ❤️</p>
+          <button
+            type="button"
+            id="btnRestart"
+            class="pill-btn btn-outline mt-2"
+            title="Restart birthday surprise from stage 1"
+          >
+            ↺ Relive the Entire Journey
+          </button>
         </div>
       </div>
     </section>

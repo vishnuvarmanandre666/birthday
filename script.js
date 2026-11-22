@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     7: document.getElementById('stage-7'),
     8: document.getElementById('stage-8'),
     9: document.getElementById('stage-9'),
-    10: document.getElementById('stage-10')
+    10: document.getElementById('stage-10'),
+    11: document.getElementById('stage-11')
   };
 
   // Nav controls
@@ -531,7 +532,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  btnRestart.addEventListener('click', () => {
+  // Stage 10 -> Stage 11 Transition (One More Surprise: Ticket Printer)
+  const btnToOneMoreSurprise = document.getElementById('btnToOneMoreSurprise');
+  const btnReprintTicket = document.getElementById('btnReprintTicket');
+  const ticketSheetWrapper = document.getElementById('ticketSheetWrapper');
+  const printerLed = document.getElementById('printerLed');
+  const printerStatusText = document.getElementById('printerStatusText');
+
+  function triggerTicketPrinting() {
+    if (ticketSheetWrapper) {
+      ticketSheetWrapper.classList.remove('sheet-printing', 'sheet-printed');
+      void ticketSheetWrapper.offsetWidth; // force reflow
+      ticketSheetWrapper.classList.add('sheet-printing');
+    }
+    if (printerLed) {
+      printerLed.className = 'printer-led led-active';
+    }
+    if (printerStatusText) {
+      printerStatusText.textContent = 'PRINTING VIRTUAL-Q COUPON...';
+    }
+
+    setTimeout(() => {
+      if (ticketSheetWrapper) {
+        ticketSheetWrapper.classList.remove('sheet-printing');
+        ticketSheetWrapper.classList.add('sheet-printed');
+      }
+      if (printerLed) {
+        printerLed.className = 'printer-led led-done';
+      }
+      if (printerStatusText) {
+        printerStatusText.textContent = '✅ TICKET ISSUED & VERIFIED';
+      }
+      playCelebrationChime();
+      triggerConfetti(0.5, 0.5);
+    }, 2400);
+  }
+
+  if (btnToOneMoreSurprise) {
+    btnToOneMoreSurprise.addEventListener('click', () => {
+      if (playerVideo) playerVideo.pause();
+      if (playerAudio) playerAudio.pause();
+      triggerConfetti(0.5, 0.6);
+      playCelebrationChime();
+      switchStage(11);
+      triggerTicketPrinting();
+    });
+  }
+
+  if (btnReprintTicket) {
+    btnReprintTicket.addEventListener('click', () => {
+      triggerTicketPrinting();
+    });
+  }
+
+  if (btnRestart) {
+    btnRestart.addEventListener('click', () => {
     // Reset state & return to stage 1
     candlesBlown = false;
     giftOpened = false;

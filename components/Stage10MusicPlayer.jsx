@@ -5,7 +5,8 @@ import confetti from 'canvas-confetti';
 export default function Stage10MusicPlayer({
   herName = 'Souji',
   yourName = 'Naveen',
-  onRestart
+  onRestart,
+  onNext
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -311,16 +312,16 @@ export default function Stage10MusicPlayer({
           </div>
         </div>
 
-        {/* Section Footer: Relive the Journey */}
+        {/* Section Footer: One More Surprise */}
         <div className="music-player-footer mt-4">
           <p className="music-love-quote">“Every love song has always been about you.” ❤️</p>
           <button
             type="button"
-            onClick={handleFullRestart}
+            onClick={onNext}
             className="pill-btn btn-primary pulse-glow mt-3"
-            title="Start from beginning"
+            title="Click for one more special surprise"
           >
-            ↺ Relive the Journey
+            One More Surprise ✨
           </button>
         </div>
       </div>

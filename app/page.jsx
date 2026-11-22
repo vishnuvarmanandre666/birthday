@@ -14,6 +14,7 @@ import Stage7Memories from '@/components/Stage7Memories';
 import Stage8Cake from '@/components/Stage8Cake';
 import Stage9Gift from '@/components/Stage9Gift';
 import Stage10MusicPlayer from '@/components/Stage10MusicPlayer';
+import Stage11TicketPrinter from '@/components/Stage11TicketPrinter';
 import CustomizeModal from '@/components/CustomizeModal';
 import {
   playTone,
@@ -227,6 +228,15 @@ export default function BirthdayPage() {
 
         {stage === 10 && (
           <Stage10MusicPlayer
+            herName={herName}
+            yourName={yourName}
+            onNext={() => goToStage(11)}
+            onRestart={handleRestart}
+          />
+        )}
+
+        {stage === 11 && (
+          <Stage11TicketPrinter
             herName={herName}
             yourName={yourName}
             onRestart={handleRestart}
