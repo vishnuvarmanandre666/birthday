@@ -6,8 +6,8 @@ export default function TopNav({ openCustomizeModal, stage, isSongPlaying, toggl
       <div className="nav-left">
         <span className="sparkle-badge">✨ Made with all my love</span>
       </div>
-      <div className="nav-right">
-        {/* Memories Song Control (Appears from Stage 7 onwards) */}
+      {/* Top right buttons (Play Song & Personalize) hidden per user request */}
+      <div className="nav-right" style={{ display: 'none' }}>
         {stage >= 7 && (
           <button
             onClick={toggleSong}
@@ -20,7 +20,6 @@ export default function TopNav({ openCustomizeModal, stage, isSongPlaying, toggl
           </button>
         )}
 
-        {/* Edit / Personalize Button */}
         <button
           onClick={openCustomizeModal}
           className="floating-btn customize-btn"

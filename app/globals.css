@@ -241,7 +241,7 @@ html, body {
 }
 
 .nav-right {
-  display: flex;
+  display: none !important;
   gap: 10px;
 }
 
