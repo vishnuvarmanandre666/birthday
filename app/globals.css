@@ -1567,12 +1567,20 @@ html, body {
 }
 
 .player-now-playing {
-  font-family: var(--font-playfair), 'Playfair Display', serif;
-  font-size: 0.88rem;
-  color: #f2dfc8;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  font-size: 0.95rem;
+  color: #eed6c0;
+  letter-spacing: 1.5px;
   display: block;
+}
+
+.player-song-title-artist {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: rgba(242, 223, 200, 0.88);
+  letter-spacing: 0.6px;
+  margin: 6px 0 0;
 }
 
 .player-song-title {
@@ -1584,7 +1592,7 @@ html, body {
 }
 
 .player-artist-name {
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.85rem;
   color: rgba(242, 223, 200, 0.78);
   letter-spacing: 0.5px;

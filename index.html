@@ -667,19 +667,15 @@
         <div class="luxury-player-card">
           <div class="player-header">
             <span class="player-now-playing">Now Playing</span>
-            <h3 class="player-song-title" id="playerSongTitle">Samayama 🎶</h3>
-            <p class="player-artist-name" id="playerArtistName">Hi Nanna • <span id="musicPlayerYourName">Naveen</span> &amp; <span id="musicPlayerHerName">Souji</span> ❤️</p>
+            <p class="player-song-title-artist">Song Title • Artist Name</p>
           </div>
 
-          <!-- Stitched Gold Border Album Art Frame -->
-          <div class="player-album-wrap" id="playerAlbumWrap" title="Tap photo to view next memory">
+          <!-- Stitched Gold Border Album Art Frame (Empty template look) -->
+          <div class="player-album-wrap" id="playerAlbumWrap">
             <div class="player-album-frame">
-              <img src="images/moment1.jpg" alt="Romantic Memory" id="playerAlbumImg" class="player-album-img">
               <div class="album-stitch-inner-border"></div>
               <div class="album-glass-glare"></div>
             </div>
-            <p class="player-photo-caption" id="playerPhotoCaption">My favorite smile in the whole world 💕</p>
-            <span class="album-tap-hint">📸 Tap photo to switch memories</span>
           </div>
 
           <!-- Golden Scrubber Bar -->
@@ -776,7 +772,7 @@
   <!-- Memories Song Audio (Stage 7-9 Instrumental) -->
   <audio id="memoriesAudio" loop preload="auto" src="memories-song.mp3"></audio>
   <!-- Stage 10 Luxury Music Player Audio (Samayama) -->
-  <audio id="playerAudio" loop preload="auto" src="samayama.mp3"></audio>
+  <audio id="playerAudio" loop preload="none"></audio>
 
   <script src="script.js"></script>
 </body>
