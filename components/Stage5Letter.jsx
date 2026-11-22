@@ -2,12 +2,34 @@
 
 export default function Stage5Letter({ herName, yourName, letterText, onNext }) {
   // Split custom or default letter into paragraphs
-  const paragraphs = letterText ? letterText.split('\n').filter(p => p.trim() !== '') : [
-    "From the moment you entered my world, everything became brighter, warmer, and endlessly more meaningful.",
-    "You’ve brought so much light, laughter, and genuine peace into my life. No matter what crazy storms come our way, you are always the one who makes everything feel okay again.",
-    "I am so endlessly lucky to call you mine. You truly have the kindest heart, the sweetest smile, and the most beautiful soul I have ever known.",
-    "Thank you for being my favorite adventure, my safest home, and my best friend all in one."
+  const defaultParagraphs = [
+    '❤️ Nannalu to Mummylu –',
+    'మమ్మీలూ...',
+    'నువ్వు నాతో మాట్లాడకపోతే బాధేస్తుంది...',
+    'నన్ను పట్టించుకోకపోతే ఇంకా బాధేస్తుంది...',
+    'కానీ నువ్వు నన్ను వదిలేసి వెళ్లిపోతానంటే మాత్రం... నా గుండె తట్టుకోలేకపోతోంది.',
+    'అసలు నేను నీ దగ్గర కోరుకునేది ఏంటో తెలుసా?',
+    'ఖరీదైన బహుమతులు కాదు...',
+    'గంటల తరబడి మాట్లాడాలని కూడా కాదు...',
+    'నువ్వు నా పక్కన ఉన్నావనే ఒక చిన్న నమ్మకం చాలు.',
+    'ప్రతి చిన్న విషయానికి నిన్నే వెతుక్కుంటాను...',
+    'ఏదైనా మంచి జరిగితే నీకు చెప్పాలనిపిస్తుంది...',
+    'బాధొస్తే నీ దగ్గరే ఏడవాలనిపిస్తుంది...',
+    'నువ్వు నా జీవితంలోకి వచ్చిన తర్వాతే ప్రేమంటే ఏంటో తెలిసింది.',
+    'కానీ ఇప్పుడు నువ్వే నన్ను దూరం పెడుతుంటే...',
+    'నేను ఎవరితో నా మనసులోని మాట చెప్పుకోవాలి మమ్మీలూ?',
+    'ఒకటి మాత్రం గుర్తుపెట్టుకో...',
+    'నేను నిన్ను ప్రేమిస్తున్నాను కాబట్టి నువ్వు నాతోనే ఉండాలని బలవంతం చేయను.',
+    'కానీ మన మధ్య ఉన్న ప్రేమ నిజమైతే...',
+    'ఒక్కసారి మన బంధం కోసం మనస్ఫూర్తిగా ఆలోచించు.',
+    'నీకు కొంచెం సమయం కావాలంటే ఇస్తాను...',
+    'నీకు నా మీద కోపం ఉంటే భరిస్తాను...',
+    'కానీ మన ప్రేమకు ఇంకో అవకాశం ఇవ్వాలని మాత్రం మనస్ఫూర్తిగా కోరుకుంటున్నాను.',
+    'నువ్వు నా జీవితంలోకి రావడం నా అదృష్టం...',
+    'కానీ నీ మనసులో ఉండగలగడం నా కోరిక మమ్మీలూ...',
+    'ఐ లవ్ యూ... ఇప్పటికీ, ఎప్పటికీ...'
   ];
+  const paragraphs = letterText ? letterText.split('\n').filter(p => p.trim() !== '') : defaultParagraphs;
 
   return (
     <section id="stage-5" className="stage-card active-stage" aria-label="The Birthday Love Letter">
